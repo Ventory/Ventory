@@ -1,4 +1,5 @@
 node_modules/
 public/
 npm-debug.log
-local_scripts/.idea/
+local_scripts/
+.idea/
