@@ -36,7 +36,8 @@ module.exports = function(grunt) {
 			distcss: 'public/stylesheets',
 			distjs: 'public/javascripts',
 			images: 'public/images',
-			fonts: 'public/fonts'
+			fonts: 'public/fonts',
+			npm: 'node_modules/'
 		},
 
 		copy: {
@@ -190,6 +191,14 @@ module.exports = function(grunt) {
 	// ---- Fresh Task
 	// CSS Task > Javascript Task > Copy Fonts, Images and Vendor JS
 	grunt.registerTask('fresh', ['runcss', 'runjs', 'copy']);
+
+	// ---- CleanP Task
+	// Clean Public Folder
+	grunt.registerTask('cleanp', ['clean:distcss', 'clean:distjs', 'clean:images', 'clean:fonts']);
+	
+	// ---- CleanN Task
+	// Clean Node_Modules Folder
+	grunt.registerTask('cleann', ['clean:npm']);
 
 	// ---- Everything
 	// CSS Task > JS Task > Copy > Watch
