@@ -12,3 +12,9 @@ Overview
 **node**
 
  - [Update Node](updateNode.md)
+
+### Repairing:
+
+**npm**
+
+ - [Repair Node](repairNpm.md)
