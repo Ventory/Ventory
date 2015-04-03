@@ -23,6 +23,15 @@ app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+var adminc = require('controller/admin');
+var userc = require('controller/users');
+var marketc = require('controller/market');
+app.use(function(res, res, next)) {
+    res.admin = adminc;
+    res.user = userc;
+    res.market = marketc;
+}
+
 app.use('/', routes);
 app.use('/users', users);
 
