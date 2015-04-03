@@ -9,6 +9,9 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+// Middleware
+var _ = require('underscore');
+
 var app = express();
 
 // This is where all the magic happens!
