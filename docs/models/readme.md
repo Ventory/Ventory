@@ -1,8 +1,4 @@
 Model Documentation
-
-<p>
-	<a href="./user.md">User Model</a>
-</p>
-<p>
-	<a href="./order.md">Order Model</a>
-</p>
+---
+ - [User Model](user.md) -- [Script](../../models/users.js)
+ - [Order Model](order.md) -- [Script](../../models/orders.js)
