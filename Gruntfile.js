@@ -1,5 +1,61 @@
+var fs = require('fs');
+var path = require('path');
+
 
 module.exports = function(grunt) {
+
+	grunt.registerTask('docmaker', '', function() {
+
+	    var bigfile = fs.openSync("./docs/models/readme.md", 'w');
+	    fs.writeSync(bigfile, "Model Documentation\n---\n");
+
+	    var files = fs.readdirSync('./models');
+	    files.forEach(function(file) {
+	      var data = fs.readFileSync("./models/" + file, {encoding: 'utf8'});
+	      var modelfile = [];
+	      var split = data.split('\n');
+	      for (var i = 0; i < split.length; i++) {
+	        var line = split[i];
+	        if (line.indexOf('new Schema') != -1) {
+	          var xline = true;
+	        }
+	        else if (xline) {
+	          var comment = line.indexOf("//")
+	          if (line.indexOf("});") > -1) {
+	            xline = false;
+	            break;
+	          }
+	          else if (comment > -1) {
+	            var currentComment = line.substring(comment + 2);
+	          }
+	          else {
+	            var matches = line.match("^.*?([a-z]+): { type: ([a-z]+), (?:default: ([a-z.]+))*.*}");
+	            if (matches.length > 1) {
+	              var matchbox = {cmd: matches[0], type: matches[1], comment: "", default: ""};
+	            if (matches. length > 2) {
+	              matchbox.default = matches[2];
+	            }
+	            if (currentComment) {
+	                matchbox.comment = currentComment;
+	                currentComment = null;
+	              }
+	              modelfile.push(matchbox);
+	            }
+	          }
+	        }
+	        var modelname = path.basename(file, ".js");
+	        var fd = fs.openSync("./docs/models/" + modelname + ".md", 'w');
+	        fs.writeSync(fd, modelname + " Model\n---\nProperty | Description | Type | Default\n--- | --- | --- | ---\n");
+	        for (var j = 0; j < modelfile.length; j++) {
+	          var fobj = modelfile[j];
+	          fs.writeSync(fd, fobj.cmd + " | " + fobj.comment + " | " + fobj.type + " | " + fobj.default);
+	        }
+	        fs.closeSync(fd);
+	        fs.writeSync(bigfile, " - " + modelname + " Model [Doc](" + modelname + ".md) -- [Script](../../models/" + modelname + ".js)\n");
+	      }
+	    });
+	    fs.closeSync(bigfile);
+  	});
 
 	grunt.initConfig({
 		
@@ -159,6 +215,12 @@ module.exports = function(grunt) {
 				dest: 'public/stylesheets/bootstrap-theme.min.css'
 			}
 		},
+
+		docmaker: {
+			options: {
+				folder: './models'
+			}
+		}
 	});
 
 	// All of the modules
@@ -203,6 +265,4 @@ module.exports = function(grunt) {
 	// ---- Everything
 	// CSS Task > JS Task > Copy > Watch
 	grunt.registerTask('default', ['runcss', 'runjs', 'copy', 'watch']);
-
-
 };
