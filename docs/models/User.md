@@ -35,7 +35,7 @@ User Model
 		<td>ipHistory</td>
 		<td></td>
 		<td>Array</td>
-		<td>[]/td>
+		<td>[]</td>
 	</tr>
 	<tr>
 		<td>searchHistory</td>
@@ -50,21 +50,21 @@ User Model
 		<td></td>
 	</tr>
 	<tr>
-		<td>name</td>
-		<td></td>
+		<td>nname</td>
+		<td>Nachname</td>
 		<td>String</td>
 		<td></td>
 	</tr>
 	<tr>
-		<td>firstname</td>
-		<td></td>
+		<td>vname</td>
+		<td>Vorname</td>
 		<td>String</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>gender</td>
-		<td></td>
-		<td>String</td>
+		<td>Gender:<br/>0 Male<br/>1 Female<br/>2 Other</td>
+		<td>Number</td>
 		<td></td>
 	</tr>
 	<tr>

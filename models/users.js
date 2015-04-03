@@ -13,8 +13,8 @@ var userSchema = new Schema({
 	searchHistory: { type: Array, default: [] },
 	// Profile Info
 	email: { type: String, required: true, trim: true},
-	name: { type: String, required: true, trim: true},
-	firstname: { type: String, required: true, trim: true},
+	nname: { type: String, required: true, trim: true},
+	vname: { type: String, required: true, trim: true},
 	gender: { type: Number, required: true},
 	settings: { type: Array, default: [] },
 	picture: { type: String },
