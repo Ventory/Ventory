@@ -1,0 +1,32 @@
+{{>partHeader}}
+
+
+<div class="jumbotron ys-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12"> 
+                <h1>{{title}}</h1>
+                <p>Welcome to {{title}}.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><a href="/">Index</a></li>
+        <li class="active">{{title}}</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      {{{content}}}
+    </div>
+  </div>
+
+{{>partFooter}}
