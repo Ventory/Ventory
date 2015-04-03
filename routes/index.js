@@ -1,20 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-
-var partialSource = {
-	standard : {
-		partHeader: '../views/partials/part-header',
-  		partFooter: '../views/partials/part-footer' 
-	}
-}
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', {
-  	title: 'Express',
-  	partials: partialSource.standard
-  });
+    res.render('index', {
+        title : "This is the title",
+        content : "This is the content"
+    });
 });
 
 module.exports = router;
