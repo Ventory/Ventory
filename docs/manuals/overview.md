@@ -3,4 +3,5 @@ Overview
 
 ### Debugging:
 
--> Debug With Node
+node-inspector
+	[Debug With Node](debugWithNode.txt)
