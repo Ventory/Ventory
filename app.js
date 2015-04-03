@@ -5,14 +5,20 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Middleware
+var cons = require('consolidate');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.engine('hjs', cons.hogan);
+
 app.set('view engine', 'hjs');
+app.set('views', path.join(__dirname, 'views'));
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
