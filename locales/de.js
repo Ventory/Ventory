@@ -1,6 +1,10 @@
 {
-	"awesome": "unglaublicher",
-	"This is the %s title for users": "Dies ist ein %s Titel für den Benutzer-Controller",
-	"This is content users": "Dies soll der Content sein",
-	"This is a translationtext": "Dies ein Translationtext"
+	"users": {
+		"index": {
+			"title": "Dies ist ein Titel",
+			"content": "Dies ist eine TranslationContent",
+			"translationTest": "Ein TranslationTest",
+			"anotherTest": "Ein weiterer TranslationTest"
+		}
+	}
 }

@@ -27,7 +27,7 @@ i18n.configure({
     extension: '.js',
 
     // enable object notation
-    objectNotation: false
+    objectNotation: true
 });
 
 module.exports = i18n;

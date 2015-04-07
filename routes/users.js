@@ -5,8 +5,8 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res) {
     res.render('users/index', {
-        title : res.__("This is the %s title for users", res.__("awesome")),
-        content : res.__("This is content users")
+        title : res.__('users.index.title'),
+        content : res.__('users.index.content')
     });
 });
 
