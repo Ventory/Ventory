@@ -1,10 +1,11 @@
 module.exports = {
-	login: function(){},
-	getUsers: function(){},
-	getUser: function(){},
+	getUsers: function(criteria, callback){},
+	getUser: function(criteria, callback){},
 	addUser: function(userobj) {
 		
 	},
-	remUser: function(){},
-	search: function(){},
+	remUser: function(user){},
+	search: function(term, dim){
+		
+	},
 }

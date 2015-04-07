@@ -18,7 +18,7 @@ var userSchema = new Schema({
 	gender: { type: Number, required: true},
 	settings: { type: Array, default: [] },
 	picture: { type: String },
-	pictureThumbnail: { type: String},
+	pictureThumbnail: { type: String },
 	address: { type: String },
 	country: { type: String },
 	// Market
