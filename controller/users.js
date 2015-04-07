@@ -3,23 +3,24 @@ SignupResult = function() {
 	this.errors = [];
 	this.fields = [];
 }
-SignupResult.prototype.addError = function(msg, fields, developer) {
+SignupResult.prototype.addError = function(msg, fields, dev) {
 	this.status = 1;
-	var dev = false;
-	if (typeof(fields) != "Array") {
-		if (typeof(fields) == "boolean") dev = fields;
-	}
-	else {
-		if (typeof(developer) == "boolean") dev = developer;
+
+	if (fields) {
 		this.fields.concat(fields);
 	}
-	this.errors.push({msg: msg, dev: dev});
+
+	this.errors.push({msg: msg, dev: dev == true});
 }
 
 module.exports = {
+
 	getUsers: function(criteria, callback){},
+
 	getUser: function(criteria, callback){},
+
 	addUser: function(userobj, callback) {
+		
 		var result = new SignupResult();
 		if (!userobj.password || !userobj.password.first.trim()) {
 			result.addError("Please specify a password", ["password"]);
@@ -36,12 +37,12 @@ module.exports = {
 		if (result.status == 1) return callback(result);
 		bcrypt.genSalt(10, function(err, salt) {
 			if (err) {
-				result.addError(JSON.stringify(err), true);
+				result.addError(JSON.stringify(err), false, true);
 				return callback(result);
 			}
     		bcrypt.hash(userobj.password, salt, function(err, hash) {
     			if (err) {
-    				result.addError(JSON.stringify(err), true);
+    				result.addError(JSON.stringify(err), false, true);
     				return callback(result);
     			}
         		var signupAttempt = new User({
@@ -54,7 +55,7 @@ module.exports = {
 				});
 				signupAttempt.save(function(err) {
 					if (err) {
-						result.addError(JSON.stringify(err), true);
+						result.addError(JSON.stringify(err), false, true);
 					}
 					callback(result);
 				});
