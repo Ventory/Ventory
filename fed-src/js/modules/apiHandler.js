@@ -10,7 +10,7 @@ function apiSignup() {
 			console.log(res);
 			console.log(status);
 		},
-		contentType: "application/json"
+		dataType: "application/json"
 	});
 }
 
