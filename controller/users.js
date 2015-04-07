@@ -20,29 +20,29 @@ module.exports = {
 	getUsers: function(criteria, callback){},
 	getUser: function(criteria, callback){},
 	addUser: function(userobj, callback) {
-		res = new SignupResult();
+		var result = new SignupResult();
 		if (!userobj.password || !userobj.password.first.trim()) {
-			res.addError("Please specify a password", ["password"]);
+			result.addError("Please specify a password", ["password"]);
 		}
 		if (userobj.password.first != userobj.password.repeat) {
-			res.addError("The passwords do not match", ["password", "passwordrep"]);
+			result.addError("The passwords do not match", ["password", "passwordrep"]);
 		}
 		if (!userobj.email || !userobj.email.match(new RegEx("\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b"))) {
-			res.addError("Please specify a valid email", ["email"]);
+			result.addError("Please specify a valid email", ["email"]);
 		}
 		if (!userobj.agree) {
-			res.addError("You need to agree to the Terms of Service in order to login", ["agree"]);
+			result.addError("You need to agree to the Terms of Service in order to login", ["agree"]);
 		}
-		if (res.status == 1) return callback(res);
+		if (result.status == 1) return callback(result);
 		bcrypt.genSalt(10, function(err, salt) {
 			if (err) {
-				res.addError(JSON.stringify(err), true);
-				return callback(res);
+				result.addError(JSON.stringify(err), true);
+				return callback(result);
 			}
     		bcrypt.hash(userobj.password, salt, function(err, hash) {
     			if (err) {
-    				res.addError(JSON.stringify(err), true);
-    				return callback(res);
+    				result.addError(JSON.stringify(err), true);
+    				return callback(result);
     			}
         		var signupAttempt = new User({
 					passwordHash: hash,
@@ -54,9 +54,9 @@ module.exports = {
 				});
 				signupAttempt.save(function(err) {
 					if (err) {
-						res.addError(JSON.stringify(err), true);
+						result.addError(JSON.stringify(err), true);
 					}
-					callback(res);
+					callback(result);
 				});
     		});
 		});
