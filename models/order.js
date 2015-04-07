@@ -6,3 +6,5 @@ var orderSchema = new Schema({
 });
 
 mongoose.model("order", orderSchema);
+
+module.exports = oderSchema;

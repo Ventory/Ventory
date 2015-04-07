@@ -6,38 +6,40 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('docmaker', '', function() {
 
-	    var bigfile = fs.openSync("./docs/models/readme.md", 'w');
-	    fs.writeSync(bigfile, "Model Documentation\n---\n");
+	    var readmeFile = fs.openSync("./docs/models/readme.md", 'w');
+	    fs.writeSync(readmeFile, "Model Documentation\n---\n");
 
-	    var files = fs.readdirSync('./models');
-	    files.forEach(function(file) {
-	      var data = fs.readFileSync("./models/" + file, {encoding: 'utf8'});
+	    var modelFiles = fs.readdirSync('./models');
+	    modelFiles.forEach(function(file) {
+	      var fileContent = fs.readFileSync("./models/" + file, {encoding: 'utf8'});
+	      // Array containing objects: {property, type, comment, default}
 	      var modelfile = [];
-	      var split = data.split('\n');
-	      for (var i = 0; i < split.length; i++) {
-	        var line = split[i];
+	      var lines = fileContent.split('\n');
+	      for (var i = 0; i < lines.length; i++) {
+	        var line = lines[i];
 	        if (line.indexOf('new Schema') != -1) {
-	          var xline = true;
+	          var inSchema = true;
 	        }
-	        else if (xline) {
-	          var comment = line.indexOf("//")
+	        else if (inSchema) {
+	          var hasComment = line.indexOf("//")
 	          if (line.indexOf("});") > -1) {
-	            xline = false;
+	            inSchema = false;
 	            break;
 	          }
-	          else if (comment > -1) {
-	            var currentComment = line.substring(comment + 2);
+	          else if (hasComment > -1) {
+	            var currentComment = line.substring(hasComment + 2);
 	          }
 	          else {
-	            var matches = line.match("^.*?([a-z]+): { type: ([a-z]+), (?:default: ([a-z.]+))*.*}");
-	            if (matches.length > 1) {
-	              var matchbox = {cmd: matches[0], type: matches[1], comment: "", default: ""};
-	            if (matches. length > 2) {
-	              matchbox.default = matches[2];
-	            }
-	            if (currentComment) {
-	                matchbox.comment = currentComment;
-	                currentComment = null;
+	          	// Perform RegEx search (property: {type: type, default: default})
+	            var matches = line.match("^.*?([a-z]+): { type: ([a-z]+), (?:default: ([a-z.]+))*.*}/i");
+	            if (matches.length) {
+	              var matchbox = {property: matches[0], type: matches[1], comment: "", default: ""};
+	              if (matches. length > 2) {
+	                matchbox.default = matches[2];
+	              }
+	              if (currentComment) {
+	                  matchbox.comment = currentComment;
+	                  currentComment = null;
 	              }
 	              modelfile.push(matchbox);
 	            }
@@ -48,13 +50,13 @@ module.exports = function(grunt) {
 	        fs.writeSync(fd, modelname + " Model\n---\nProperty | Description | Type | Default\n--- | --- | --- | ---\n");
 	        for (var j = 0; j < modelfile.length; j++) {
 	          var fobj = modelfile[j];
-	          fs.writeSync(fd, fobj.cmd + " | " + fobj.comment + " | " + fobj.type + " | " + fobj.default);
+	          fs.writeSync(fd, fobj.property + " | " + fobj.comment + " | " + fobj.type + " | " + fobj.default);
 	        }
 	        fs.closeSync(fd);
-	        fs.writeSync(bigfile, " - " + modelname + " Model [Doc](" + modelname + ".md) -- [Script](../../models/" + modelname + ".js)\n");
+	        fs.writeSync(readmeFile, " - " + modelname + " Model [Doc](" + modelname + ".md) -- [Script](../../models/" + modelname + ".js)\n");
 	      }
 	    });
-	    fs.closeSync(bigfile);
+	    fs.closeSync(readmeFile);
   	});
 
 	grunt.initConfig({
@@ -98,7 +100,7 @@ module.exports = function(grunt) {
 
 		copy: {
 			images: {
-				files: [{ 
+				modelFiles: [{ 
 					expand: true,
 					cwd: 'fed-src/images/', 
 					src: ['**/*.{png,jpg,svg,ico}'], 
@@ -106,7 +108,7 @@ module.exports = function(grunt) {
 				}]
 			},
 			fonts: {
-				files: [{ 
+				modelFiles: [{ 
 					expand: true,
 					cwd: 'fed-src/fonts/', 
 					src: ['**/*.*'], 
@@ -114,7 +116,7 @@ module.exports = function(grunt) {
 				}]
 			},
 			vendorjs: {
-				files: [{ 
+				modelFiles: [{ 
 					expand: true,
 					cwd: 'fed-src/js/vendor/', 
 					src: ['**/*.*'], 
@@ -125,19 +127,19 @@ module.exports = function(grunt) {
 
 		watch: {
 			js: {
-				files: ['fed-src/js/**/*.js'],
+				modelFiles: ['fed-src/js/**/*.js'],
 				tasks: ['runjs'],
 			},
 			less: {
-				files: ['fed-src/less/**/*.less'],
+				modelFiles: ['fed-src/less/**/*.less'],
 				tasks: ['runcss'],
 			},
 			customless: {
-				files: ['fed-src/less-custom/**/*.less'],
+				modelFiles: ['fed-src/less-custom/**/*.less'],
 				tasks: ['runcss'],
 			},
-			data: {
-				files: ['fed-src/images/**/*.*', 'fed-src/fonts/**/*.*', 'fed-src/js/vendor/**/*.*'],
+			fileContent: {
+				modelFiles: ['fed-src/images/**/*.*', 'fed-src/fonts/**/*.*', 'fed-src/js/vendor/**/*.*'],
 				tasks: ['copy']
 			}
 		},
