@@ -20,21 +20,24 @@ module.exports = {
 	getUser: function(criteria, callback){},
 
 	addUser: function(userobj, callback) {
-		
+
+
+
 		var result = new SignupResult();
 		if (!userobj.password || !userobj.password.first.trim()) {
 			result.addError("Please specify a password", ["password"]);
 		}
 		if (userobj.password.first != userobj.password.repeat) {
-			result.addError("The passwords do not match", ["password", "passwordrep"]);
+			result.addError("The passwords do not match", ["passwordrep"]);
 		}
-		if (!userobj.email || !userobj.email.match(new RegEx("\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b"))) {
+		if (!userobj.email || !userobj.email.match("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i")) {
 			result.addError("Please specify a valid email", ["email"]);
 		}
 		if (!userobj.agree) {
-			result.addError("You need to agree to the Terms of Service in order to login", ["agree"]);
+			result.addError("You need to agree to the Terms of Service", ["agree"]);
 		}
 		if (result.status == 1) return callback(result);
+
 		bcrypt.genSalt(10, function(err, salt) {
 			if (err) {
 				result.addError(JSON.stringify(err), false, true);
@@ -50,8 +53,8 @@ module.exports = {
 					name: "",
 					firstname: "",
 					email: userobj.email.toLowerCase(),
-					gender: "",
-					language: ""
+					gender: 0,
+					language: "de"
 				});
 				signupAttempt.save(function(err) {
 					if (err) {
@@ -62,7 +65,9 @@ module.exports = {
     		});
 		});
 	},
+
 	remUser: function(user){},
+
 	search: function(term, dim){
 		
 	},
