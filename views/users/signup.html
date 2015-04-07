@@ -1,0 +1,30 @@
+{% extends '../index.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <form class="form" method="POST" action="">
+        	<div class="form-group">
+        		<label>Email adress</label>
+        		<input type="email" class="form-control" id="signupMainEmail" placeholder="Enter your Email..">
+        	</div>
+        	<div class="form-group">
+        		<label>Password</label>
+        		<input type="password" class="form-control" id="signupMainPassword" placeholder="Choose a Password..">
+        	</div>
+        	<div class="form-group">
+        		<label>Repeat Password</label>
+        		<input type="password" class="form-control" id="sugnupMainPasswordRep" placeholder="Repeat your Password">
+        	</div>
+        	<div class="form-group">
+        		<label>
+        			<input type="checkbox"> I accept the <a href="#">TOS</a> aswell as the <a href="#">Privacy Agreement</a>.
+        		</label>
+        	</div>
+        	<button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

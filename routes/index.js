@@ -9,4 +9,10 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/signup', function(req, res) {
+	res.render('users/signup', {
+		title: "Ventory - Sign Up"
+	})
+});
+
 module.exports = router;

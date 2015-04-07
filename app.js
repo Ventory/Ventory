@@ -17,7 +17,10 @@ var expressSession = require('express-session');
 var passportLocal = require('passport-local');
 var flash = require('connect-flash');
 var MongoStore = require('connect-mongo')(expressSession);
+
 var swig = require('swig');
+var bcrypt = require('bcrypt');
+
 
 var app = express();
 
