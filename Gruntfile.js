@@ -87,7 +87,7 @@ module.exports = function(grunt) {
 		},
 
 		jshint: {
-			beforerun: ['fed-src/js/main/*.js']
+			beforerun: ['fed-src/js/main/*.js', 'fed-src/js/modules/*.js']
 		},
 
 		clean: {
@@ -100,7 +100,7 @@ module.exports = function(grunt) {
 
 		copy: {
 			images: {
-				modelFiles: [{ 
+				files: [{ 
 					expand: true,
 					cwd: 'fed-src/images/', 
 					src: ['**/*.{png,jpg,svg,ico}'], 
@@ -108,7 +108,7 @@ module.exports = function(grunt) {
 				}]
 			},
 			fonts: {
-				modelFiles: [{ 
+				files: [{ 
 					expand: true,
 					cwd: 'fed-src/fonts/', 
 					src: ['**/*.*'], 
@@ -116,30 +116,38 @@ module.exports = function(grunt) {
 				}]
 			},
 			vendorjs: {
-				modelFiles: [{ 
+				files: [{ 
 					expand: true,
 					cwd: 'fed-src/js/vendor/', 
 					src: ['**/*.*'], 
 					dest:'public/javascripts/vendor' 
+				}]
+			},
+			modulejs: {
+				files: [{ 
+					expand: true,
+					cwd: 'fed-src/js/modules/', 
+					src: ['**/*.*'], 
+					dest:'public/javascripts/modules' 
 				}]
 			}
 		},
 
 		watch: {
 			js: {
-				modelFiles: ['fed-src/js/**/*.js'],
+				files: ['fed-src/js/**/*.js'],
 				tasks: ['runjs'],
 			},
 			less: {
-				modelFiles: ['fed-src/less/**/*.less'],
+				files: ['fed-src/less/**/*.less'],
 				tasks: ['runcss'],
 			},
 			customless: {
-				modelFiles: ['fed-src/less-custom/**/*.less'],
+				files: ['fed-src/less-custom/**/*.less'],
 				tasks: ['runcss'],
 			},
 			fileContent: {
-				modelFiles: ['fed-src/images/**/*.*', 'fed-src/fonts/**/*.*', 'fed-src/js/vendor/**/*.*'],
+				files: ['fed-src/images/**/*.*', 'fed-src/fonts/**/*.*', 'fed-src/js/vendor/**/*.*', 'fed-src/js/modules/**/*.*'],
 				tasks: ['copy']
 			}
 		},
@@ -250,7 +258,7 @@ module.exports = function(grunt) {
 	// ---- Javascript Task
 	// lint check > concatenating > minify
 	// Do not rename / Referenced in watch
-	grunt.registerTask('runjs', ['jshint', 'concat', 'uglify']);
+	grunt.registerTask('runjs', ['jshint', 'concat', 'copy:modulejs', 'uglify']);
 
 	// ---- Fresh Task
 	// CSS Task > Javascript Task > Copy Fonts, Images and Vendor JS
