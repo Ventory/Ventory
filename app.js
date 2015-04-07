@@ -40,7 +40,7 @@ swig.setDefaults({ cache: false });
 // Don't leave both of these to `false` in production!
 
 // default: using 'accept-language' header to guess language settings
-app.use(i18n.init)
+app.use(i18n.init);
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
