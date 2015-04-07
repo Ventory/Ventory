@@ -8,9 +8,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 // Routes
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var api = require('./routes/api');
+var routesIndex = require('./routes/index');
+var routesUsers = require('./routes/users');
+var routesApi = require('./routes/api');
 
 // Additional Middleware
 var mongoose = require('mongoose');
@@ -106,9 +106,9 @@ passport.deserializeUser(function(id, done) {
 });
 
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/api', api);
+app.use('/', routesIndex);
+app.use('/users', routesUsers);
+app.use('/api', routesApi);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
