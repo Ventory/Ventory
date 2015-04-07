@@ -9,7 +9,8 @@ function apiSignup() {
 		success: function(res, status) {
 			console.log(res);
 			console.log(status);
-		}
+		},
+		contentType: "application/json"
 	});
 }
 
