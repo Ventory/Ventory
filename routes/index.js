@@ -17,15 +17,4 @@ router.get('/signup', function(req, res) {
 	})
 });
 
-router.post('/signup', function(req, res) {
-	userc.addUser(req.body, function(err){
-		if (err) {
-			req.flash('loginError', err);
-			res.redirect('/signup');
-		} else {
-			res.redirect('/signupsuccess')
-		}
-	});
-});
-
 module.exports = router;
