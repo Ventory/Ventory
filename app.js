@@ -1,5 +1,6 @@
 
 var express = require('express');
+var i18n = require('./config/language');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -38,6 +39,8 @@ swig.setDefaults({ cache: false });
 // NOTE: You should always cache templates in a production environment.
 // Don't leave both of these to `false` in production!
 
+// default: using 'accept-language' header to guess language settings
+app.use(i18n.init)
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
