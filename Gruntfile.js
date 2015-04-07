@@ -87,7 +87,7 @@ module.exports = function(grunt) {
 		},
 
 		jshint: {
-			beforerun: ['fed-src/js/main/*.js', 'fed-src/js/modules/*.js']
+			beforerun: ['fed-src/js/main/*.js']
 		},
 
 		clean: {
