@@ -5,12 +5,11 @@ function apiSignup() {
 	$.ajax({
 		type: "POST",
 		url: "/api/signup",
-		data: data,
-		success: function(res, err) {
+		data: JSON.stringify(data),
+		success: function(res, status) {
 			console.log(res);
-			console.log(err);
-		},
-		dataType: "JSON"
+			console.log(status);
+		}
 	});
 }
 
