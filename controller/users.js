@@ -1,22 +1,19 @@
 SignupResult = function() {
-	
+	this.status = 0;
+	this.errors = [];
+	this.fields = [];
 }
-SignupResult.prototype = {
-	status: 0,
-	errors: [],
-	fields: [],
-	addError: function(msg, fields, developer) {
-		this.status = 1;
-		var dev = false;
-		if (typeof(fields) != "Array") {
-			if (typeof(fields) == "boolean") dev = fields;
-		}
-		else {
-			if (typeof(developer) == "boolean") dev = developer;
-			this.fields.concat(fields);
-		}
-		errors.push({msg: msg, dev: dev});
+SignupResult.prototype.addError = function(msg, fields, developer) {
+	this.status = 1;
+	var dev = false;
+	if (typeof(fields) != "Array") {
+		if (typeof(fields) == "boolean") dev = fields;
 	}
+	else {
+		if (typeof(developer) == "boolean") dev = developer;
+		this.fields.concat(fields);
+	}
+	this.errors.push({msg: msg, dev: dev});
 }
 
 module.exports = {
@@ -24,13 +21,13 @@ module.exports = {
 	getUser: function(criteria, callback){},
 	addUser: function(userobj, callback) {
 		res = new SignupResult();
-		if (!userobj.password.trim()) {
+		if (!userobj.password || !userobj.password.first.trim()) {
 			res.addError("Please specify a password", ["password"]);
 		}
-		if (userobj.password != userobj.passwordrep) {
+		if (userobj.password.first != userobj.password.repeat) {
 			res.addError("The passwords do not match", ["password", "passwordrep"]);
 		}
-		if (!userobj.trim() || !userobj.email.match(new RegEx("\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b"))) {
+		if (!userobj.email || !userobj.email.match(new RegEx("\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b"))) {
 			res.addError("Please specify a valid email", ["email"]);
 		}
 		if (!userobj.agree) {

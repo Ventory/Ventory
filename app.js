@@ -1,4 +1,3 @@
-
 var express = require('express');
 var i18n = require('./config/language');
 var path = require('path');
