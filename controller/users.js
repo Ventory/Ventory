@@ -28,7 +28,7 @@ module.exports = {
 		if (userobj.password.first != userobj.password.repeat) {
 			result.addError("The passwords do not match", ["password", "passwordrep"]);
 		}
-		if (!userobj.email || !userobj.email.match(new RegEx("\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b"))) {
+		if (!userobj.email || !userobj.email.match("/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i")) {
 			result.addError("Please specify a valid email", ["email"]);
 		}
 		if (!userobj.agree) {
