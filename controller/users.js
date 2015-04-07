@@ -15,7 +15,9 @@ module.exports = {
 	getUser: function(criteria, callback){},
 
 	addUser: function(userobj, callback) {
-		
+
+
+
 		var result = new SignupResult();
 		if (!userobj.password || !userobj.password.first.trim()) {
 			result.addError("Please specify a password", "password[first]");
@@ -30,6 +32,7 @@ module.exports = {
 			result.addError("You need to agree to the Terms of Service in order to login", "agree");
 		}
 		if (result.status == 1) return callback(result);
+
 		bcrypt.genSalt(10, function(err, salt) {
 			if (err) {
 				result.addError(JSON.stringify(err), null, true);
@@ -45,8 +48,8 @@ module.exports = {
 					name: "",
 					firstname: "",
 					email: userobj.email.toLowerCase(),
-					gender: "",
-					language: ""
+					gender: 0,
+					language: "de"
 				});
 				signupAttempt.save(function(err) {
 					if (err) {
@@ -57,7 +60,9 @@ module.exports = {
     		});
 		});
 	},
+
 	remUser: function(user){},
+
 	search: function(term, dim){
 		
 	},
