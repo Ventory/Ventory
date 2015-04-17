@@ -67,7 +67,20 @@ module.exports = function(grunt) {
 				dest: 'public/javascripts/main.js'
 			},
 			bootstrapjs: {
-				src: ['fed-src/js/bootstrap/*.js'],
+				src: [
+				'fed-src/js/bootstrap/transition.js',
+				'fed-src/js/bootstrap/alert.js',
+				'fed-src/js/bootstrap/button.js',
+				'fed-src/js/bootstrap/carousel.js',
+				'fed-src/js/bootstrap/collapse.js',
+				'fed-src/js/bootstrap/dropdown.js',
+				'fed-src/js/bootstrap/modal.js',
+				'fed-src/js/bootstrap/tooltip.js',
+				'fed-src/js/bootstrap/popover.js',
+				'fed-src/js/bootstrap/scrollspy.js',
+				'fed-src/js/bootstrap/tab.js',
+				'fed-src/js/bootstrap/affix.js'
+				],
 				dest: 'public/javascripts/bootstrap.js'
 			}
 		},

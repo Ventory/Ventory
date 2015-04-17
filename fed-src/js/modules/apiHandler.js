@@ -1,5 +1,3 @@
-// Hey
-
 function apiSignup() {
 	$('#signupMainAlertContainer').html('');
 
@@ -35,5 +33,3 @@ function apiSignup() {
 		}
 	});
 }
-
-console.log('apiHandler.js ready.');
