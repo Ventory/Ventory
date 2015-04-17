@@ -21,7 +21,7 @@ if (app.get('env') == 'development') {
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'))
     db.once('open', function(callback) {
-        // console.log('Database connection established');
+        console.log('Database connection established');
     });
 }
 
@@ -52,17 +52,17 @@ function randString() {
 }
 
 var bigArray = [];
-bigArray.length = 10000;
+bigArray.length = 1000;
 
-for (var i = 0; i < 1000; i++) {
-	for (var j = 0; j < 10000; j++) {
+for (var i = 0; i < 100; i++) {
+	for (var j = 0; j < 1000; j++) {
 		bigArray[i] = {timestamp: Date.now(), name: randString()};
 	}
 	var usr = new User({
 		orders: bigArray
 	});
-	usr.reviews.length = 10000;
-	for (var j = 0; j < 10000; j++) {
+	usr.reviews.length = 1000;
+	for (var j = 0; j < 1000; j++) {
 		usr.reviews.push(new Review({id: Date.now(), type: randString()}));
 	}
 	usr.save(function(err) {
