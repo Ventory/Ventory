@@ -8,6 +8,8 @@ SignupResult.prototype.addError = function(msg, field, dev) {
 	this.errors.push({msg: msg, dev: dev == true, field: field});
 }
 
+var emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i;
+
 module.exports = {
 
 	getUsers: function(criteria, callback){},
@@ -16,8 +18,6 @@ module.exports = {
 
 	addUser: function(userobj, callback) {
 
-
-
 		var result = new SignupResult();
 		if (!userobj.password || !userobj.password.first.trim()) {
 			result.addError("Please specify a password", "password[first]");
@@ -25,11 +25,11 @@ module.exports = {
 		if (userobj.password.first != userobj.password.repeat) {
 			result.addError("The passwords do not match", "password[repeat]");
 		}
-		if (!userobj.email || !userobj.email.match("/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i")) {
+		if (!userobj.email || !userobj.email.match(emailRegex)) {
 			result.addError("Please specify a valid email", "email");
 		}
 		if (!userobj.agree) {
-			result.addError("You need to agree to the Terms of Service in order to login", "agree");
+			result.addError("You need to agree to the Terms of Service in order to sign up", "agree");
 		}
 		if (result.status == 1) return callback(result);
 
@@ -61,7 +61,7 @@ module.exports = {
 		});
 	},
 
-	remUser: function(user){},
+	removeUser: function(user){},
 
 	search: function(term, dim){
 		
